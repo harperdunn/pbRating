@@ -8,7 +8,7 @@ class University(models.Model):
     detailsOverview=models.TextField(default='none')
   
     # High-Impact Questions (100 points each)
-    animal_based_percentage = models.IntegerField(null=True, blank=True, default=0)  # 0-100%
+    animal_based_percentage = models.IntegerField(null=True, blank=True, default=100)  # 0-100%
     #per_capita_emissions = models.IntegerField(null=True, blank=True)  # 1-5 ranking
     formal_commitments = models.IntegerField(null=True, blank=True, default=0)  # 0, 1, 2
     vegan_meals = models.FloatField(null=True, blank=True, default=0)  # vegan meals per average dinner day, 0-3+
