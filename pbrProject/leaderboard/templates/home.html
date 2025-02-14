@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title style="font-family: Helvectica, sans-serif; font-weight: bold;">UPGRADE Dining University Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        h1 {text-align: center;}
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {background-color: #ddd;}
+    </style>
+</head>
+<body>
+    <h1>University Leaderboard</h1>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>University</th>
+            <th>Score</th>
+            <th>Grade</th> <!-- Added new column for animal-based percent -->
+        </tr>
+        {% for uni in myunis %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ uni.fullname }}</td>
+            <td>{{ uni.overallScore }}</td> <!-- Assuming there's a 'score' attribute -->
+            <td>{{ uni.overallGrade }}%</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title style="font-family: Helvectica, sans-serif; font-weight: bold;">UPGRADE Dining University Leaderboard</title>
+    <style>
+        /* Basic reset and font definitions */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Updated font */
+            margin: 0;
+            padding: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        /* Centered title with a larger, bold look */
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            color: #2c3e50; /* Dark blue shade for more professional look */
+            margin-bottom: 20px; /* Space between title and table */
+        }
+
+        /* Styling for the table */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        /* Table header styles */
+        th, td {
+            padding: 12px 15px; /* More padding for better spacing */
+            text-align: left;
+            border-bottom: 1px solid #ddd; /* Lighter border for less visual weight */
+        }
+
+        th {
+            background-color: #47bc68; /* A nice blue */
+            color: white;
+            letter-spacing: 0.05em; /* Spacing out letters slightly */
+        }
+
+        /* Hover effects for table rows */
+        tr:hover {
+            background-color: #f0f0f0; /* Light grey for hover */
+            cursor: pointer; /* Indicates the row is interactive */
+        }
+
+        /* Link styling */
+        a {
+            color: #3abd5f; /* Matching the header */
+            text-decoration: none; /* No underline */
+            transition: color 0.3s; /* Smooth transition for hover effect */
+        }
+
+        a:hover {
+            color: #2980b9; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>UPGRADE University Leaderboard</h1>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>University</th>
+            <th>Score (out of 10)</th>
+            <th>Grade</th> <!-- Added new column for animal-based percent -->
+        </tr>
+        {% for uni in myunis %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'university_detail' uni.id %}">{{ uni.fullname }}</a></td>
+            <td>{{ uni.overallScore }}</td> <!-- Assuming there's a 'score' attribute -->
+            <td>{{ uni.overallGrade }}%</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
