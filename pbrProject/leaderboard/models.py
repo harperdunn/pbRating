@@ -8,7 +8,7 @@ class University(models.Model):
     detailsOverview=models.TextField(default='none')
   
     # High-Impact Questions (100 points each)
-    animal_based_percentage = models.IntegerField(null=True, blank=True, default=100)  # 0-100%
+    animal_based_percentage = models.FloatField(null=True, blank=True, default=100)  # 0-100%
     #per_capita_emissions = models.IntegerField(null=True, blank=True)  # 1-5 ranking
     formal_commitments = models.IntegerField(null=True, blank=True, default=0)  # 0, 1, 2
     vegan_meals = models.FloatField(null=True, blank=True, default=0)  # vegan meals per average dinner day, 0-3+
@@ -18,14 +18,13 @@ class University(models.Model):
     default_veg_program = models.IntegerField(null=True, blank=True, default=0)  # 0(never), 1(piloted), 2(currently implemented)
     culinary_training = models.IntegerField(null=True, blank=True, default=0)  # 0(never), 1(past), 2(recent- past 2 years)
     recent_changes = models.IntegerField(null=True, blank=True, default=0) #0(none), 1(minor), 2(major)
-    plant_breakfast_options = models.IntegerField(null=True, blank=True, default=0)  # 0-5+
+    plant_breakfast_options = models.FloatField(null=True, blank=True, default=0)  # 0-5+
     student_satisfaction = models.IntegerField(null=True, blank=True, default=0)  # 0 (no survey data), 1(mixed/negative), 2(positive)
-
 
 
     # Low-Impact Questions (20 points each)
     plant_desserts = models.IntegerField(null=True, blank=True, default=0)  # 0- never, 1-occasionally , 2- always
-    salad_protein = models.IntegerField(null=True, blank=True, default=0)  # 0-4+
+    salad_protein = models.FloatField(null=True, blank=True, default=0)  # 0-4+
     transition_provider = models.BooleanField(default=False) 
     promotional_materials = models.BooleanField(default=False)
     sustainability_guidebook = models.BooleanField(default=False)
@@ -125,11 +124,37 @@ class University(models.Model):
         
     def get_overall_score(self):
         return self.get_high_impact_questions_points()+self.get_medium_impact_questions_points()+self.get_low_impact_questions_points()
+
+    def get_grade(self):
+        score = self.overallScore
+        if score >= 400:
+            return 'A-'
+        elif score >= 380:
+            return 'B+'
+        elif score >= 360:
+            return 'B'
+        elif score >= 340:
+            return 'B-'
+        elif score >= 320:
+            return 'C+'
+        elif score >= 300:
+            return 'C'
+        elif score >= 280:
+            return 'C-'
+        elif score >= 260:
+            return 'D+'
+        elif score >= 240:
+            return 'D'
+        elif score >= 220:
+            return 'D-'
+        else:
+            return 'F'
    
     #overriding the save function, ensuring that overallscore gets updated whenever an attribute changes
     def save(self, *args, **kwargs):
         #Automatically update overallScore before saving.
         self.overallScore = self.get_overall_score()
+        self.overallGrade=self.get_grade()
         super().save(*args, **kwargs)  # Call the parent class's save method
 
     

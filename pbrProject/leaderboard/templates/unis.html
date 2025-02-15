@@ -76,7 +76,7 @@
             <td>{{ forloop.counter }}</td>
             <td><a href="{% url 'university_detail' uni.id %}">{{ uni.fullname }}</a></td>
             <td>{{ uni.overallScore }}</td> <!-- Assuming there's a 'score' attribute -->
-            <td>{{ uni.overallGrade }}%</td>
+            <td>{{ uni.overallGrade }}</td>
         </tr>
         {% endfor %}
     </table>
