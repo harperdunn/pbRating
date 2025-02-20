@@ -17,3 +17,6 @@ def university_detail(request, university_id):
 def home(request):
     myunis = University.objects.all().values()
     return render(request, "home.html", {"myunis":myunis})
+
+def about(request):
+    return render(request, "about.html")
