@@ -3,12 +3,12 @@ from django.db import models
 # Create your models here.
 class University(models.Model):
     fullname=models.CharField(max_length=255)
-    overallScore=models.FloatField(default=0)
+    overallScore=models.IntegerField(default=0)
     overallGrade=models.CharField(max_length=255, default='B')
     detailsOverview=models.TextField(default='none')
   
     # High-Impact Questions (100 points each)
-    animal_based_percentage = models.FloatField(null=True, blank=True, default=100)  # 0-100%
+    animal_based_percentage = models.FloatField(null=True, blank=True, default=79)  # 0-100%
     #per_capita_emissions = models.IntegerField(null=True, blank=True)  # 1-5 ranking
     formal_commitments = models.IntegerField(null=True, blank=True, default=0)  # 0, 1, 2
     vegan_meals = models.FloatField(null=True, blank=True, default=0)  # vegan meals per average dinner day, 0-3+
@@ -35,11 +35,11 @@ class University(models.Model):
     def get_animal_based_percentage_points(self):
         if self.animal_based_percentage>80:
             return 0
-        elif self.animal_based_percentage>60:
+        elif self.animal_based_percentage>70:
             return 25
-        elif self.animal_based_percentage>40:
+        elif self.animal_based_percentage>60:
             return 50
-        elif self.animal_based_percentage>20:
+        elif self.animal_based_percentage>50:
             return 75
         else: return 100
 
@@ -129,23 +129,23 @@ class University(models.Model):
         score = self.overallScore
         if score >= 400:
             return 'A-'
-        elif score >= 380:
+        elif score >= 375:
             return 'B+'
-        elif score >= 360:
+        elif score >= 350:
             return 'B'
-        elif score >= 340:
+        elif score >= 325:
             return 'B-'
-        elif score >= 320:
-            return 'C+'
         elif score >= 300:
+            return 'C+'
+        elif score >= 275:
             return 'C'
-        elif score >= 280:
+        elif score >= 250:
             return 'C-'
-        elif score >= 260:
+        elif score >= 200:
             return 'D+'
-        elif score >= 240:
+        elif score >= 150:
             return 'D'
-        elif score >= 220:
+        elif score >= 75:
             return 'D-'
         else:
             return 'F'

@@ -1,19 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load bootstrap5 %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title style="font-family: Helvectica, sans-serif; font-weight: bold;">UPGRADE Dining University Leaderboard</title>
+    <link rel="stylesheet" href="{% static 'myfirst.css'%}">
     <style>
         /* Basic reset and font definitions */
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Updated font */
-            margin: 0;
-            padding: 40px;
-            background-color: #f9f9f9;
-            color: #333;
-            box-sizing: border-box;
-        }
+        
 
         /* Centered title with a larger, bold look */
         h1 {
@@ -68,7 +64,7 @@
         <tr>
             <th>Rank</th>
             <th>University</th>
-            <th>Score (out of 10)</th>
+            <th>Points Total (Maximum Value 680) </th>
             <th>Grade</th> <!-- Added new column for animal-based percent -->
         </tr>
         {% for uni in myunis %}
