@@ -10,7 +10,7 @@ class University(models.Model):
     # High-Impact Questions (100 points each)
     animal_based_percentage = models.FloatField(null=True, blank=True, default=79)  # 0-100%
     #per_capita_emissions = models.IntegerField(null=True, blank=True)  # 1-5 ranking
-    formal_commitments = models.IntegerField(null=True, blank=True, default=0)  # 0, 1, 2
+    formal_commitments = models.FloatField(null=True, blank=True, default=0)  # 0, 1, 2, 3
     vegan_meals = models.FloatField(null=True, blank=True, default=0)  # vegan meals per average dinner day, 0-3+
     
     # Medium-Impact Questions (50 points each)
@@ -44,8 +44,10 @@ class University(models.Model):
         else: return 100
 
     def get_formal_commitments_points(self):
-        if self.formal_commitments==2: return 100 #multiple commitments signed
-        elif self.formal_commitments==1: return 75
+        if self.formal_commitments==3: return 100 #multiple commitments signed
+        elif self.formal_commitments>1: return 75
+        elif self.formal_commitments==1: return 50
+        elif self.formal_commitments>0: return 25
         else: return 0
 
     def get_vegan_meals_points(self):
