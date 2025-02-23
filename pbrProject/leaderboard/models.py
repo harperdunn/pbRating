@@ -25,7 +25,7 @@ class University(models.Model):
     # Low-Impact Questions (20 points each)
     plant_desserts = models.IntegerField(null=True, blank=True, default=0)  # 0- never, 1-occasionally , 2- always
     salad_protein = models.FloatField(null=True, blank=True, default=0)  # 0-4+
-    transition_provider = models.BooleanField(default=False) 
+    #transition_provider = models.BooleanField(default=False) 
     promotional_materials = models.BooleanField(default=False)
     sustainability_guidebook = models.BooleanField(default=False)
     labeling = models.IntegerField(null=True, blank=True, default=0)  # 0- no labeling, 1- inconsistent, 2- clear and consistent

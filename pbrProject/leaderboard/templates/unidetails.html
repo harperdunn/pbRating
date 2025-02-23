@@ -1,7 +1,115 @@
 {% extends "master.html"%}
 {% block title %} {{university.fullname}} {% endblock%}
 {% block content %}
+<!-- University Name - score, student rating
+
+
+Current PB offerings (includes breakfast, lunch, dinner, dessert options)
+
+Commitments
+
+
+Recent shift toward PB foods? (can include vegan stations, meatless mondays, working with PB transition provider)
+
+
+Labeling + Naming (maybe include images here?)
+
+Default Veg program or pilot (can be yes/no, but maybe for yes specific - e.g. default oatmilk at cafes)
+
+Dining resources (include sustainable eating page/program, sustainability guidebook for dining services, advertising/promotional materials, PB culinary training)
+
+Student Satisfaction/reviews:
+ -->
+<div class="text-center bg-secondary-subtle mt-5">
 <h1>{{university.fullname}}</h1>
 <h2>Score: {{university.overallScore}}</h2>
 <h2>Grade: {{university.overallGrade}}</h2>
+<h2> {{university.detailsOverview}}</h2>
+<h2> {{university.animal_based_percentage}}% of yearly food purchases are on animal-based food.</h2>
+<h1> Current Plant Based Options</h1>
+<h2> idk</h2>
+<h2> Recently, {{university.fullname}} has made some shifts to more plant-based foods. yadayayda</h2>
+
+ <!-- Centered Card Grid -->
+ <div class="container">
+    <!-- 1 column per row on xs and small, md and largre is 2 columns per row. -->
+    <div class="row row-cols-1 row-cols-md-2 g-3 justify-content-center align-items-center">
+      <!-- Card 1 -->
+      <div class="col">
+        <div class="card mb-3 border-0 px-3 mx-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-12">
+              <div class="card-body">
+                <!-- money icon -->
+                <i class="bi bi-cash-coin h1"></i>
+                <p class="display-5 my-4 text-primary fw-bold">{{university.animal_based_percentage}}%</p>  
+                <h5 class="card-title">of yearly food purchases are on animal-based products.</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col">
+        <div class="card mb-3 border-0" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-12">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  This is a wider card with supporting text below as a natural lead-in to
+                  additional content. This content is a little bit longer.
+                </p>
+                <p class="card-text">
+                  <small class="text-muted">Last updated 3 mins ago</small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col">
+        <div class="card mb-3 border-0" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-12">
+              <div class="card-body">
+                <p class="display-5 my-4 text-primary fw-bold">{{university.animal_based_percentage}}</p>  
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  This is a wider card with supporting text below as a natural lead-in to
+                  additional content. This content is a little bit longer.
+                </p>
+                <p class="card-text">
+                  <small class="text-muted">Last updated 3 mins ago</small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col">
+        <div class="card mb-3 border-0" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-12">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">
+                  This is a wider card with supporting text below as a natural lead-in to
+                  additional content. This content is a little bit longer.
+                </p>
+                <p class="card-text">
+                  <small class="text-muted">Last updated 3 mins ago</small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
