@@ -26,9 +26,9 @@ Student Satisfaction/reviews:
 <h2>Grade: {{university.overallGrade}}</h2>
 <h2> {{university.detailsOverview}}</h2>
 <h2> {{university.animal_based_percentage}}% of yearly food purchases are on animal-based food.</h2>
-<h1> Current Plant Based Options</h1>
 <h2> idk</h2>
 <h2> Recently, {{university.fullname}} has made some shifts to more plant-based foods. yadayayda</h2>
+<h1>{{university.fullname}}'s stats at a glance</h1>
 
  <!-- Centered Card Grid -->
  <div class="container">
@@ -42,7 +42,7 @@ Student Satisfaction/reviews:
               <div class="card-body">
                 <!-- money icon -->
                 <i class="bi bi-cash-coin h1"></i>
-                <p class="display-5 my-4 text-primary fw-bold">{{university.animal_based_percentage}}%</p>  
+                <p class="display-5 my-4 text-success fw-bold">{{university.animal_based_percentage}}%</p>  
                 <h5 class="card-title">of yearly food purchases are on animal-based products.</h5>
               </div>
             </div>
@@ -56,14 +56,9 @@ Student Satisfaction/reviews:
           <div class="row g-0">
             <div class="col-md-12">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a wider card with supporting text below as a natural lead-in to
-                  additional content. This content is a little bit longer.
-                </p>
-                <p class="card-text">
-                  <small class="text-muted">Last updated 3 mins ago</small>
-                </p>
+                <i class="bi bi-file-earmark-check h1"></i>
+                <p class="display-5 my-4 text-primary fw-bold">{{university.get_only_formal_commitments}}</p>  
+                <h5 class="card-title">formal commitments to reducing food-related impact on the planet.</h5>
               </div>
             </div>
           </div>
@@ -76,15 +71,9 @@ Student Satisfaction/reviews:
           <div class="row g-0">
             <div class="col-md-12">
               <div class="card-body">
-                <p class="display-5 my-4 text-primary fw-bold">{{university.animal_based_percentage}}</p>  
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a wider card with supporting text below as a natural lead-in to
-                  additional content. This content is a little bit longer.
-                </p>
-                <p class="card-text">
-                  <small class="text-muted">Last updated 3 mins ago</small>
-                </p>
+                <i class="fa-solid fa-utensils h1"></i>
+                <p class="display-5 my-4 text-warning fw-bold">{{university.vegan_meals}}</p>  
+                <h5 class="card-title">plant-based mains served at dinner on average per week at each dining hall.</h5>
               </div>
             </div>
           </div>
@@ -97,14 +86,8 @@ Student Satisfaction/reviews:
           <div class="row g-0">
             <div class="col-md-12">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a wider card with supporting text below as a natural lead-in to
-                  additional content. This content is a little bit longer.
-                </p>
-                <p class="card-text">
-                  <small class="text-muted">Last updated 3 mins ago</small>
-                </p>
+                <i class="bi bi-tags h1"></i>
+                <h5 class="card-title">labeling & naming quality rating</h5>
               </div>
             </div>
           </div>

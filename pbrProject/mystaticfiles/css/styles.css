@@ -11027,3 +11027,11 @@ p {
 .address strong {
   font-size: 1.2rem;
 }
+
+
+.libre-franklin-<uniquifier> {
+  font-family: "Libre Franklin", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}

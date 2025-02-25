@@ -11,6 +11,7 @@ class University(models.Model):
     animal_based_percentage = models.FloatField(null=True, blank=True, default=79)  # 0-100%
     #per_capita_emissions = models.IntegerField(null=True, blank=True)  # 1-5 ranking
     formal_commitments = models.FloatField(null=True, blank=True, default=0)  # 0, 1, 2, 3
+    transition_provider = models.BooleanField(default=False) 
     vegan_meals = models.FloatField(null=True, blank=True, default=0)  # vegan meals per average dinner day, 0-3+
     
     # Medium-Impact Questions (50 points each)
@@ -25,7 +26,6 @@ class University(models.Model):
     # Low-Impact Questions (20 points each)
     plant_desserts = models.IntegerField(null=True, blank=True, default=0)  # 0- never, 1-occasionally , 2- always
     salad_protein = models.FloatField(null=True, blank=True, default=0)  # 0-4+
-    #transition_provider = models.BooleanField(default=False) 
     promotional_materials = models.BooleanField(default=False)
     sustainability_guidebook = models.BooleanField(default=False)
     labeling = models.IntegerField(null=True, blank=True, default=0)  # 0- no labeling, 1- inconsistent, 2- clear and consistent
@@ -43,12 +43,15 @@ class University(models.Model):
             return 75
         else: return 100
 
-    def get_formal_commitments_points(self):
-        if self.formal_commitments==3: return 100 #multiple commitments signed
-        elif self.formal_commitments>1: return 75
-        elif self.formal_commitments==1: return 50
-        elif self.formal_commitments>0: return 25
+    def get_commitments_points(self):
+        if self.formal_commitments>=2: return 100 #multiple commitments signed
+        elif self.formal_commitments>=1: return 75 #1 individual commitment signed
+        elif self.transition_provider: return 50 #working with transition provider
+        elif self.formal_commitments>0: return 25 #1+ informal commitment
         else: return 0
+
+    def get_only_formal_commitments(self): #this excludes the informal commitements by truncating bc the informals are worth 0.5 points
+        return int(self.formal_commitments)
 
     def get_vegan_meals_points(self):
         if self.vegan_meals>=3:
