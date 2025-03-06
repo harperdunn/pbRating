@@ -11,7 +11,16 @@ def leaderboard(request):
 
 def university_detail(request, university_id):
     university = get_object_or_404(University, pk=university_id)
-    return render(request, 'unidetails.html', {'university': university})
+    star_count = university.get_labeling_star_rating()  
+    empty_stars=5-star_count
+    progress_bar_pct=university.get_overall_score()/740*100
+    return render(request, 'unidetails.html', {
+        'university': university,
+        'star_count': star_count,
+        'filled_stars':range(star_count),
+        'empty_stars': range(empty_stars),
+        'progress_bar_pct': progress_bar_pct,
+          })
 
 
 def home(request):

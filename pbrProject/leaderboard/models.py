@@ -5,7 +5,7 @@ class University(models.Model):
     fullname=models.CharField(max_length=255)
     overallScore=models.IntegerField(default=0)
     overallGrade=models.CharField(max_length=255, default='B')
-    detailsOverview=models.TextField(default='none')
+    detailsOverview=models.TextField(default='Details Overview Goes Here')
   
     # High-Impact Questions (100 points each)
     animal_based_percentage = models.FloatField(null=True, blank=True, default=79)  # 0-100%
@@ -28,8 +28,8 @@ class University(models.Model):
     salad_protein = models.FloatField(null=True, blank=True, default=0)  # 0-4+
     promotional_materials = models.BooleanField(default=False)
     sustainability_guidebook = models.BooleanField(default=False)
-    labeling = models.IntegerField(null=True, blank=True, default=0)  # 0- no labeling, 1- inconsistent, 2- clear and consistent
-    naming = models.IntegerField(null=True, blank=True, default=0)  # 0, 1, 2
+    labeling = models.FloatField(null=True, blank=True, default=0)  # 0- no labeling, 1- inconsistent, 2- clear and consistent
+    naming = models.FloatField(null=True, blank=True, default=0)  # 0, 1, 2
     meatless_monday = models.IntegerField(null=True, blank=True, default=0)  # 0, 1, 2
 
     def get_animal_based_percentage_points(self):
@@ -66,7 +66,7 @@ class University(models.Model):
             return 0
         
     def get_high_impact_questions_points(self):
-        return self.get_animal_based_percentage_points()+self.get_formal_commitments_points()+self.get_vegan_meals_points()
+        return self.get_animal_based_percentage_points()+self.get_commitments_points()+self.get_vegan_meals_points()
                                 
     
     def get_medium_impact_questions_points(self):
@@ -154,7 +154,22 @@ class University(models.Model):
             return 'D-'
         else:
             return 'F'
-   
+    def get_labeling_star_rating(self):
+        #naming has more weight
+        value=(self.naming*1.5)+self.labeling
+        if value>=5:
+            return 5
+        elif value>=4:
+            return 4
+        elif value>=3:
+            return 3
+        elif value>=2:
+            return 2
+        elif value>=1: 
+            return 1
+        else: return 0
+        
+
     #overriding the save function, ensuring that overallscore gets updated whenever an attribute changes
     def save(self, *args, **kwargs):
         #Automatically update overallScore before saving.

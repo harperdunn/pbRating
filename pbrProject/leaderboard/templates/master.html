@@ -11,13 +11,35 @@
   <title>{% block title %}{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
+  <style>
+    .progress {
+        --bs-progress-height: 40px; /* Increase height */
+        --bs-progress-border-radius: 10px; /* Rounded corners */
+        --bs-progress-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        --bs-progress-bg: white; /* Change background */
+        --bs-progress-bar-color: white; /* Change text color inside progress bar */
+    /* Manually apply box-shadow */
+        box-shadow: var(--bs-progress-box-shadow);
+    }
+    body {
+    font-family: 'Libre Franklin', sans-serif;
+}
+/* controlling height of image slides */
+.carousel-item {
+    aspect-ratio: 16 / 9; /* Adjust the ratio as needed */
+  }
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+  }
+</style>
 </head>
-<div class="text-center">
 <body>
-    <header>
-        UPGRADE Dining Leaderboard
+    <header class="text-center h2">
+        UPGRADE Dining University Leaderboard
     </header>
-    <nav class="navbar navbar-expand-md">
+    <nav class="navbar navbar-expand-md justify-content-center">
         <a class="navbar-brand" href="#">Logo</a>
         <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
             <span class="navbar-toggler-icon"></span>
@@ -35,7 +57,9 @@
                 </li>
             </ul>
         </div>
-    </nav>    
+    </nav>  
+<div class="text-center shadow p-3 mb-5  rounded border-5 border-white">
+  
 {% block content %}
 {% endblock %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
