@@ -1,4 +1,6 @@
 from django.db import models
+from pathlib import Path
+import os
 
 # Create your models here.
 class University(models.Model):
@@ -6,7 +8,9 @@ class University(models.Model):
     overallScore=models.IntegerField(default=0)
     overallGrade=models.CharField(max_length=255, default='B')
     detailsOverview=models.TextField(default='Details Overview Goes Here')
-  
+    images=models.ImageField
+
+
     # High-Impact Questions (100 points each)
     animal_based_percentage = models.FloatField(null=True, blank=True, default=79)  # 0-100%
     #per_capita_emissions = models.IntegerField(null=True, blank=True)  # 1-5 ranking
@@ -169,14 +173,68 @@ class University(models.Model):
             return 1
         else: return 0
         
-
     #overriding the save function, ensuring that overallscore gets updated whenever an attribute changes
     def save(self, *args, **kwargs):
         #Automatically update overallScore before saving.
         self.overallScore = self.get_overall_score()
         self.overallGrade=self.get_grade()
         super().save(*args, **kwargs)  # Call the parent class's save method
+        #this automatically creates the folder to store the images in
 
     
+    @property
+    def image_folder(self):
+        # Dynamically generate the folder name based on the university name
+        return f"university_images/{self.fullname.replace(' ', '_').lower()}"
+
+def upload_to_university_images(instance, filename):
+    # instance: The UniversityImage instance being saved
+    # filename: The original name of the uploaded file
+    #instance.university means the University object that corresponds to this image (model instance actually)
+    return f"{instance.university.image_folder}/{filename}"
+
+
+#um idk ab this
+class UniversityImage(models.Model):
+    university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to=upload_to_university_images)
+    caption = models.CharField(max_length=255, blank=True)  # Optional caption
+
+    def __str__(self):
+        return f"Image for {self.university.fullname}"
+    
+    #overriding the save method makes sure files are cleaned up appropriately
+    def save(self, *args, **kwargs):
+        # Check if the instance already exists in the database
+        if self.pk:
+            # Get the old image file path
+            old_instance = UniversityImage.objects.get(pk=self.pk) #pk means primary key
+            if old_instance.image and old_instance.image != self.image:
+                # Delete the old file if it exists
+                if os.path.isfile(old_instance.image.path):
+                    os.remove(old_instance.image.path)
+
+        # Call the parent save method
+        super().save(*args, **kwargs)
+
+    #overriding the delete method so files are cleaned up when a University model with images is deleted on the admin side.
+    def delete(self, *args, **kwargs):
+        # Delete the file from the filesystem
+        if self.image:
+            if os.path.isfile(self.image.path):
+                os.remove(self.image.path)
+        # Call the parent delete method
+        super().delete(*args, **kwargs)
+
+
+class UniversityTestimonial(models.Model):
+    university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='testimonials')
+    name=models.CharField
+    role=models.CharField
+    quote=models.TextField
+
+    def __str__(self):
+        return f"Testimonial for {self.university.fullname}"
+
 
 
