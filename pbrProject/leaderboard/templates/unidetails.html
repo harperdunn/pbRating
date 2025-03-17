@@ -144,112 +144,48 @@
         <p>More details about the university can go here.</p>
     </div>
 </div>    
+<section id="testimonials" style="color: #000; background-color: #f3f2f2;">
+  <div class="container m-5 py-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10 col-xl-8 text-center">
+        <h3 class="fw-bold mb-4">Testimonials</h3>
+        <p class="mb-4 pb-2 mb-md-5 pb-md-0">
+          Here are some quotes from current students about {{ university.fullname }}'s plant-based options and progress.
+        </p>
+      </div>
+    </div>
 
-    <section id="testimonials" style="color: #000; background-color: #f3f2f2;">
-      <div class="container m-5 py-5">
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-10 col-xl-8 text-center">
-            <h3 class="fw-bold mb-4">Testimonials</h3>
-            <p class="mb-4 pb-2 mb-md-5 pb-md-0">
-              Here are some quotes from current students about {{university.fullname}}'s plant-based options and progress.'
+    <div class="row text-center">
+      {% for testimonial in testimonials %}
+      <div class="col-md-4 mb-4 mb-md-0">
+        <div class="card">
+          <div class="card-body py-4 mt-2">
+            <h5 class="font-weight-bold">{{ testimonial.name }}</h5>
+            <h6 class="font-weight-bold my-3">{{ testimonial.role }}</h6>
+            <ul class="list-unstyled d-flex justify-content-center">
+              {% for i in "12345" %}
+              <li>
+                {% if forloop.counter <= testimonial.stars %}
+                <!-- solid stars from font awesome solid -->
+                  <i class="fas fa-star fa-sm text-info"></i> 
+                {% else %}
+                <!-- empty stars from font awesome regular -->
+                  <i class="far fa-star fa-sm text-info"></i>
+                {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+            <p class="mb-2">
+              <i class="fas fa-quote-left pe-2"></i>{{ testimonial.quote }}<i class="fas fa-quote-right pe-2"></i>
             </p>
           </div>
         </div>
-    
-        <div class="row text-center">
-          <div class="col-md-4 mb-4 mb-md-0">
-            <div class="card">
-              <div class="card-body py-4 mt-2">
-                <h5 class="font-weight-bold">Teresa May</h5>
-                <h6 class="font-weight-bold my-3">Founder at ET Company</h6>
-                <ul class="list-unstyled d-flex justify-content-center">
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star-half-alt fa-sm text-info"></i>
-                  </li>
-                </ul>
-                <p class="mb-2">
-                  <i class="fas fa-quote-left pe-2"></i>Lorem ipsum dolor sit amet,
-                  consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat
-                  ad velit ab hic tenetur.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4 mb-md-0">
-            <div class="card">
-              <div class="card-body py-4 mt-2">
-                <h5 class="font-weight-bold">Maggie McLoan</h5>
-                <h6 class="font-weight-bold my-3">Photographer at Studio LA</h6>
-                <ul class="list-unstyled d-flex justify-content-center">
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                </ul>
-                <p class="mb-2">
-                  <i class="fas fa-quote-left pe-2"></i>Autem, totam debitis suscipit saepe
-                  sapiente magnam officiis quaerat necessitatibus odio assumenda perferendis
-                  labore laboriosam.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-0">
-            <div class="card">
-              <div class="card-body py-4 mt-2">
-                <h5 class="font-weight-bold">Alexa Horwitz</h5>
-                <h6 class="font-weight-bold my-3">Front-end Developer in NY</h6>
-                <ul class="list-unstyled d-flex justify-content-center">
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  </li>
-                  <li>
-                    <i class="far fa-star fa-sm text-info"></i>
-                  </li>
-                </ul>
-                <p class="mb-2">
-                  <i class="fas fa-quote-left pe-2"></i>Cras sit amet nibh libero, in gravida
-                  nulla metus scelerisque ante sollicitudin commodo cras purus odio,
-                  vestibulum in tempus viverra turpis.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
+      {% endfor %}
+    </div>
+  </div>
+</section>
     
+        
   </div>
 {% endblock %}

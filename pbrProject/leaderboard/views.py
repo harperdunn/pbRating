@@ -25,11 +25,10 @@ def university_detail(request, university_id):
     # Extract the relative paths for use in templates
     image_urls = [f"/media/{university.image_folder}/{f.name}" for f in image_files]
 
-    #Testimonials (fetched from database)
-    testimonials = [
-        university.
-    ]
+    #fetch testimonials linked to the uni
+    testimonials = university.testimonials.all()
     
+    #this render function allows unidetails.html to access all of these variables that we defined in this view.
     return render(request, 'unidetails.html', {
         'university': university,
         'star_count': star_count,
@@ -37,6 +36,7 @@ def university_detail(request, university_id):
         'empty_stars': range(empty_stars),
         'progress_bar_pct': progress_bar_pct,
         'image_urls':image_urls,
+        'testimonials': testimonials,
           })
 
 
