@@ -13,7 +13,7 @@ class UniversityTestimonialInline(admin.TabularInline):
 
 @admin.register(University)
 class UniversityAdmin(admin.ModelAdmin):
-    inlines = [UniversityImageInline]  # Add the inline for images
+    inlines = [UniversityImageInline, UniversityTestimonialInline]  # Add the inline for images
 
 
 @admin.register(UniversityImage)

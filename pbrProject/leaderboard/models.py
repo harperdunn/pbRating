@@ -8,7 +8,6 @@ class University(models.Model):
     overallScore=models.IntegerField(default=0)
     overallGrade=models.CharField(max_length=255, default='B')
     detailsOverview=models.TextField(default='Details Overview Goes Here')
-    images=models.ImageField
 
 
     # High-Impact Questions (100 points each)
@@ -178,6 +177,9 @@ class University(models.Model):
         #Automatically update overallScore before saving.
         self.overallScore = self.get_overall_score()
         self.overallGrade=self.get_grade()
+        #creating image folder path if it doesn't exist
+        if not os.path.exists(self.image_folder):
+            os.makedirs(self.image_folder)
         super().save(*args, **kwargs)  # Call the parent class's save method
         #this automatically creates the folder to store the images in
 
@@ -185,7 +187,8 @@ class University(models.Model):
     @property
     def image_folder(self):
         # Dynamically generate the folder name based on the university name
-        return f"university_images/{self.fullname.replace(' ', '_').lower()}"
+        intermediate= f"university_images/{self.fullname.replace(' ', '_').lower()}"
+        return str(Path('media') / intermediate)
 
 def upload_to_university_images(instance, filename):
     # instance: The UniversityImage instance being saved
@@ -194,11 +197,11 @@ def upload_to_university_images(instance, filename):
     return f"{instance.university.image_folder}/{filename}"
 
 
-#um idk ab this
 class UniversityImage(models.Model):
     university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to=upload_to_university_images)
     caption = models.CharField(max_length=255, blank=True)  # Optional caption
+
 
     def __str__(self):
         return f"Image for {self.university.fullname}"
@@ -229,9 +232,9 @@ class UniversityImage(models.Model):
 
 class UniversityTestimonial(models.Model):
     university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='testimonials')
-    name=models.CharField(max_length=255)
-    role=models.CharField(max_length=255)
-    stars=models.FloatField(default=1, choices=((i,i) for i in range(1, 6)))
+    name=models.CharField(max_length=255, default='Anonymous')
+    role=models.CharField(max_length=255, default="Student")
+    stars=models.FloatField(default=0, choices=((i,i) for i in range(0, 6)))
     quote=models.TextField()
 
     def __str__(self):

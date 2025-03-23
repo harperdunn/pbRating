@@ -1,83 +1,41 @@
+{% extends "master.html"%}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load bootstrap5 %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title style="font-family: Helvectica, sans-serif; font-weight: bold;">UPGRADE Dining University Leaderboard</title>
-    <link rel="stylesheet" href="{% static 'myfirst.css'%}">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <style>
-        /* Basic reset and font definitions */
-        body {
-    font-family: 'Libre Franklin', sans-serif;
-}
+{% block title %} University Leaderboard {% endblock%}
+{% block content %}
+    <div class="text-center bg-success-subtle p-3">
+        <h1 class="display-1 my-4 text-black fw-bold">UPGRADE University Leaderboard</h1>
+    </div>
 
-        /* Centered title with a larger, bold look */
-        h1 {
-            text-align: center;
-            font-size: 2em;
-            color: #2c3e50; /* Dark blue shade for more professional look */
-            margin-bottom: 20px; /* Space between title and table */
-        }
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10"> <!-- Adjust the width as needed -->
+                        <table class="table table-success table-striped table-bordered my-3 box-shadow">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>University</th>
+                                    <th>Points Total (Maximum Value 680)</th>
+                                    <th>Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for uni in myunis %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td class=><a href="{% url 'university_detail' uni.id %}" class="text-success text-decoration-none fw-bold">{{ uni.fullname }}</a></td>
+                                    <td>{{ uni.overallScore }}</td>
+                                    <td>{{ uni.overallGrade }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        /* Styling for the table */
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-        }
-
-        /* Table header styles */
-        th, td {
-            padding: 12px 15px; /* More padding for better spacing */
-            text-align: left;
-            border-bottom: 1px solid #ddd; /* Lighter border for less visual weight */
-        }
-
-        th {
-            background-color: #47bc68; /* A nice blue */
-            color: white;
-            letter-spacing: 0.05em; /* Spacing out letters slightly */
-        }
-
-        /* Hover effects for table rows */
-        tr:hover {
-            background-color: #f0f0f0; /* Light grey for hover */
-            cursor: pointer; /* Indicates the row is interactive */
-        }
-
-        /* Link styling */
-        a {
-            color: #3abd5f; /* Matching the header */
-            text-decoration: none; /* No underline */
-            transition: color 0.3s; /* Smooth transition for hover effect */
-        }
-
-        a:hover {
-            color: #2980b9; /* Darker blue on hover */
-        }
-    </style>
-</head>
-<body>
-    <h1>UPGRADE University Leaderboard</h1>
-    <table>
-        <tr>
-            <th>Rank</th>
-            <th>University</th>
-            <th>Points Total (Maximum Value 680) </th>
-            <th>Grade</th> <!-- Added new column for animal-based percent -->
-        </tr>
-        {% for uni in myunis %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td><a href="{% url 'university_detail' uni.id %}">{{ uni.fullname }}</a></td>
-            <td>{{ uni.overallScore }}</td> <!-- Assuming there's a 'score' attribute -->
-            <td>{{ uni.overallGrade }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+    <!-- bottom container  -->
+    <div class="text-center bg-success-subtle p-3">
+    </div>
+{% endblock %}

@@ -23,7 +23,16 @@
     }
     body {
     font-family: 'Libre Franklin', sans-serif;
-}
+    background-color: #f8f9fa; /* Light background for consistency */
+    }
+    /* Centered title with a larger, bold look */
+    h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #2c3e50; /* Dark blue shade for more professional look */
+            margin-bottom: 20px; /* Space between title and table */
+        }
+
 /* controlling height of image slides */
 .carousel-item {
     aspect-ratio: 16 / 9; /* Adjust the ratio as needed */
@@ -33,12 +42,17 @@
     height: 100%;
     object-fit: cover; /* Ensures the image covers the area without stretching */
   }
+  Styling for the table
+    table {
+            width: 100%;
+            padding: 50px;
+            border-collapse: collapse;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    }
+        
 </style>
 </head>
 <body>
-    <header class="text-center h2">
-        UPGRADE Dining University Leaderboard
-    </header>
     <nav class="navbar navbar-expand-md justify-content-center">
         <a class="navbar-brand" href="#">Logo</a>
         <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">

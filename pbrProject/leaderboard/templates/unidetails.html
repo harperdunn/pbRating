@@ -104,11 +104,11 @@
   <div class="display-3 fw-bold m-3 border-3 border-white">Student Pictures and Testimonials
   </div>
     <!-- Bootstrap Carousel -->
-    {% if image_urls %}
+    {% if images %}
     <div id="universityCarousel" class="carousel slide" data-bs-ride="carousel">
         <!-- Carousel Indicators -->
         <div class="carousel-indicators">
-            {% for image_url in image_urls %}
+            {% for image in images %}
             <button type="button" data-bs-target="#universityCarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
                     {% if forloop.first %}class="active" aria-current="true"{% endif %} 
                     aria-label="Slide {{ forloop.counter }}"></button>
@@ -117,9 +117,12 @@
 
         <!-- Carousel Items -->
         <div class="carousel-inner">
-            {% for image_url in image_urls %}
+            {% for image in images %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <img src="{{ image_url }}" class="d-block w-100" alt="Slide {{ forloop.counter }}">
+                <img src="{{ image.image.url }}" class="d-block w-100 rounded" alt="{{image.caption}}">
+                <div class="carousel-caption d-none d-md-block">
+                  <p>{{ image.caption }}</p>  <!-- Display the caption -->
+              </div>
             </div>
             {% endfor %}
         </div>
@@ -135,14 +138,9 @@
         </button>
     </div>
     {% else %}
-    <p>No images found for {{ university.name }}.</p>
+    <p>No images found for {{ university.fullname }}</p>
     {% endif %}
 
-    <!-- Other Content -->
-    <div class="mt-5">
-        <h2>Other Information</h2>
-        <p>More details about the university can go here.</p>
-    </div>
 </div>    
 <section id="testimonials" style="color: #000; background-color: #f3f2f2;">
   <div class="container m-5 py-5">
@@ -158,11 +156,11 @@
     <div class="row text-center">
       {% for testimonial in testimonials %}
       <div class="col-md-4 mb-4 mb-md-0">
-        <div class="card">
-          <div class="card-body py-4 mt-2">
+          <div class="card-body p-4 my-3 mx-2 shadow bg-success-subtle">
             <h5 class="font-weight-bold">{{ testimonial.name }}</h5>
             <h6 class="font-weight-bold my-3">{{ testimonial.role }}</h6>
             <ul class="list-unstyled d-flex justify-content-center">
+              {% if testimonial.stars > 0 %}
               {% for i in "12345" %}
               <li>
                 {% if forloop.counter <= testimonial.stars %}
@@ -174,18 +172,24 @@
                 {% endif %}
               </li>
               {% endfor %}
+              {% else %}
+              <!-- Placeholder for alignment if there are no stars given (early/survey testimonials)-->
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              {% endif %}
             </ul>
             <p class="mb-2">
               <i class="fas fa-quote-left pe-2"></i>{{ testimonial.quote }}<i class="fas fa-quote-right pe-2"></i>
             </p>
           </div>
-        </div>
       </div>
       {% endfor %}
     </div>
   </div>
 </section>
-    
-        
+      
   </div>
 {% endblock %}
