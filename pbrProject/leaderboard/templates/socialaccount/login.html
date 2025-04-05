@@ -1,0 +1,45 @@
+{% extends 'master.html' %}  <!-- Path to your master template if in different directory -->
+{% load static %}
+{% load socialaccount %}
+
+
+{% block title %}Login Page{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 500px; margin: 2rem auto;">
+  {% if request.session.user_data %}
+    <div class="text-center">
+      <p>Hi {{ request.session.user_data.given_name }} 🙂</p>
+      <p>Your email is {{ request.session.user_data.email }}</p>
+      <img src="{{ request.session.user_data.picture }}" alt="User picture" class="img-fluid rounded-circle my-3">
+      <p>Click here to <a href="/sign-out" class="btn btn-outline-primary">Sign out</a></p>
+    </div>
+  {% else %}
+    <div class="text-center">
+      <h2 class="mb-4">Welcome to UPGRADE Dining</h2>
+      <p class="lead mb-4">Please sign in with your Google account</p>
+      <a href="{% provider_login_url 'google' %}" class="btn btn-google">
+        <i class="fab fa-google"></i> Sign in with Google
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+
+
+<style>
+  /* custom styles that ONLY apply to this page */
+  .container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+</style>
+{% endblock %}

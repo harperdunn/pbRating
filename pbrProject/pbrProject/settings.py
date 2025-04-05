@@ -55,8 +55,31 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'leaderboard',
-    'bootstrap5'
+    'bootstrap5',
+    'django.contrib.sites',  # Required for allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',  # Google OAuth
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '442445957047-71aah099spi36iq1bn1atlnb4cr52s43.apps.googleusercontent.com',
+            'secret': '[REDACTED_SECRET]',
+            'key': ''
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -67,7 +90,21 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'allauth.account.middleware.AccountMiddleware',  # allauth
+
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+ACCOUNT_ADAPTER = 'leaderboard.adapters.AccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'leaderboard.adapters.SocialAccountAdapter'
+
+SITE_ID = 1  # Required for allauth
+
+# Optional: Set login redirect URL
+LOGIN_REDIRECT_URL = '/'
 
 ROOT_URLCONF = 'pbrProject.urls'
 
