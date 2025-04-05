@@ -233,9 +233,11 @@ class UniversityImage(models.Model):
 class UniversityTestimonial(models.Model):
     university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='testimonials')
     name=models.CharField(max_length=255, default='Anonymous')
-    role=models.CharField(max_length=255, default="Student")
+    role=models.CharField(max_length=255)
     stars=models.FloatField(default=0, choices=((i,i) for i in range(0, 6)))
     quote=models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)  # For moderation
 
     def __str__(self):
         return f"Testimonial {self.id} for {self.university.fullname}"

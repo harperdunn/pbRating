@@ -1,6 +1,8 @@
 //custom color variables
-$primary: #38664c
+$primary: #38664c;
+$font-family-sans-serif: 'Libre Franklin', sans-serif; // Custom font
+
 
 
 //import bootstrap
-@import '../node_modules/bootstrap/scss/bootstrap';
+@import "../node_modules/bootstrap/scss/bootstrap";

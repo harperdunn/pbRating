@@ -21,14 +21,13 @@
   <div class="col-12 col-md-10"> <!-- Adjust the width as needed -->
     <div class="card mb-3 border-0 px-3 mx-3 shadow">
       <div class="card-body">
-        <h5 class="card-title">{{university.fullname}}Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut quo blanditiis fugit vel possimus odit debitis quisquam sed saepe delectus ea, unde maxime quia corrupti, cupiditate aliquam itaque impedit nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus nisi culpa eius vel tempora ducimus, sequi repellat obcaecati, dolorem neque nemo pariatur placeat fuga cum libero, voluptate accusamus odio. Officiis!</h5> <!-- Example title -->
-      </div>
+        <h5 class="card-title">{{university.detailsOverview}}</h5>
     </div>
   </div>
 </div>
 
  <!-- 2-column Card Grid -->
-    <!-- 1 column per row on xs and small, md and largre is 2 columns per row. -->
+    <!-- 1 column per row on xs and small, md and large is 2 columns per row. -->
     <div class="row row-cols-1 row-cols-md-2 g-3 justify-content-center align-items-center">
       <!-- Card 1 -->
       <div class="col">
@@ -116,7 +115,7 @@
         </div>
 
         <!-- Carousel Items -->
-        <div class="carousel-inner">
+        <div class="carousel-inner m-3">
             {% for image in images %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                 <img src="{{ image.image.url }}" class="d-block w-100 rounded" alt="{{image.caption}}">
@@ -142,9 +141,10 @@
     {% endif %}
 
 </div>    
-<section id="testimonials" style="color: #000; background-color: #f3f2f2;">
-  <div class="container m-5 py-5">
-    <div class="row d-flex justify-content-center">
+<section class="rounded" id="testimonials" style="color: #000; background-color: #f3f2f2;">
+  <div class="container py-5">  <!-- Removed m-5 and d-flex from container -->
+    <!-- Header -->
+    <div class="row justify-content-center">
       <div class="col-md-10 col-xl-8 text-center">
         <h3 class="fw-bold mb-4">Testimonials</h3>
         <p class="mb-4 pb-2 mb-md-5 pb-md-0">
@@ -153,40 +153,60 @@
       </div>
     </div>
 
-    <div class="row text-center">
+    <!-- Cards Grid -->
+    <div class="row justify-content-center g-3">  <!-- Simplified grid -->
       {% for testimonial in testimonials %}
-      <div class="col-md-4 mb-4 mb-md-0">
-          <div class="card-body p-4 my-3 mx-2 shadow bg-success-subtle">
-            <h5 class="font-weight-bold">{{ testimonial.name }}</h5>
-            <h6 class="font-weight-bold my-3">{{ testimonial.role }}</h6>
-            <ul class="list-unstyled d-flex justify-content-center">
-              {% if testimonial.stars > 0 %}
+      <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">  <!-- Responsive columns -->
+        <div class="card-body p-4 shadow bg-success-subtle rounded" style="width: 100%; max-width: 300px;">  <!-- Centered card -->
+          <h5 class="font-weight-bold text-center">{{ testimonial.name }}</h5>
+          <h6 class="font-weight-bold my-3 text-center">{{ testimonial.role }}</h6>
+          <ul class="list-unstyled d-flex justify-content-center">
+            {% if testimonial.stars > 0 %}
               {% for i in "12345" %}
-              <li>
-                {% if forloop.counter <= testimonial.stars %}
-                <!-- solid stars from font awesome solid -->
-                  <i class="fas fa-star fa-sm text-info"></i> 
-                {% else %}
-                <!-- empty stars from font awesome regular -->
-                  <i class="far fa-star fa-sm text-info"></i>
-                {% endif %}
-              </li>
+                <li>
+                  {% if forloop.counter <= testimonial.stars %}
+                    <i class="fas fa-star fa-sm text-info"></i>
+                  {% else %}
+                    <i class="far fa-star fa-sm text-info"></i>
+                  {% endif %}
+                </li>
               {% endfor %}
-              {% else %}
-              <!-- Placeholder for alignment if there are no stars given (early/survey testimonials)-->
-              <li>&nbsp;</li>
-              <li>&nbsp;</li>
-              <li>&nbsp;</li>
-              <li>&nbsp;</li>
-              <li>&nbsp;</li>
-              {% endif %}
-            </ul>
-            <p class="mb-2">
-              <i class="fas fa-quote-left pe-2"></i>{{ testimonial.quote }}<i class="fas fa-quote-right pe-2"></i>
-            </p>
-          </div>
+            {% else %}
+              <li class="invisible"><i class="fas fa-star fa-sm"></i></li>  <!-- Better invisible placeholder -->
+            {% endif %}
+          </ul>
+          <p class="mb-2 text-center">
+            <i class="fas fa-quote-left pe-2"></i>{{ testimonial.quote }}<i class="fas fa-quote-right pe-2"></i>
+          </p>
+        </div>
       </div>
       {% endfor %}
+    </div>
+
+    <!-- Form -->
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-8">
+        <div class="testimonial-form text-center p-4 shadow-sm bg-white rounded">
+          <h4 class="mb-4">Share Your Experience</h4>
+          <form method="post" action="{% url 'university_detail' university.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="submit_testimonial" value="1">
+            <div class="form-group mb-3">
+              <label for="id_name">Your Name</label>
+              {{ testimonial_form.name }}
+            </div>
+            <div class="form-group mb-3">
+              <label for="id_role">Your Role</label>
+              {{ testimonial_form.role }}
+            </div>
+            <div class="form-group mb-4">
+              <label for="id_review">Your Review</label>
+              {{ testimonial_form.quote }}
+            </div>
+            <button type="submit" class="btn btn-primary px-4">Submit Review</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </section>

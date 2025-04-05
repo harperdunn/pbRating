@@ -1,8 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.template import loader
 from .models import University
 from pathlib import Path
+from .forms import TestimonialForm
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+
+
 
 # Create your views here.
 def leaderboard(request):
@@ -35,6 +40,24 @@ def university_detail(request, university_id):
 
     #fetch testimonials linked to the uni
     testimonials = university.testimonials.all()
+
+    # Get approved testimonials only
+    testimonials = university.testimonials.filter(approved=True)
+    
+    # Handle testimonial submission
+    if request.method == 'POST' and 'submit_testimonial' in request.POST:
+        form = TestimonialForm(request.POST)
+        if form.is_valid():
+            testimonial = form.save(commit=False)
+            testimonial.university = university
+            if request.user.is_authenticated:
+                testimonial.user = request.user
+                testimonial.name = request.user.get_full_name() or request.user.username
+            testimonial.save()
+            messages.success(request, 'Thank you for your testimonial! It will be reviewed before appearing.')
+            return redirect('university_detail', university_id=university.id)
+    else:
+        form = TestimonialForm()
     
     #this render function allows unidetails.html to access all of these variables that we defined in this view.
     return render(request, 'unidetails.html', {
@@ -45,6 +68,7 @@ def university_detail(request, university_id):
         'progress_bar_pct': progress_bar_pct,
         'images': images,
         'testimonials': testimonials,
+        'testimonial_form': form,
           })
 
 
