@@ -37,7 +37,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0xb$nv+)o7tr0%(n_=&uoc7ejy7&f!oii67(f_72k#(y&iw4$d'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -66,8 +66,8 @@ INSTALLED_APPS = [
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '442445957047-71aah099spi36iq1bn1atlnb4cr52s43.apps.googleusercontent.com',
-            'secret': '[REDACTED_SECRET]',
+            'client_id': os.getenv('GOOGLE_OAUTH_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_OAUTH_SECRET'),
             'key': ''
         },
         'SCOPE': [
