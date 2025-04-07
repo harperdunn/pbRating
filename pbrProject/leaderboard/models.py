@@ -1,6 +1,11 @@
 from django.db import models
+from django.db.models import Avg
 from pathlib import Path
 import os
+from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+
 
 # Create your models here.
 class University(models.Model):
@@ -9,6 +14,8 @@ class University(models.Model):
     overallGrade=models.CharField(max_length=255, default='B')
     detailsOverview=models.TextField(default='Details Overview Goes Here')
 
+    def __str__(self):
+        return self.fullname
 
     # High-Impact Questions (100 points each)
     animal_based_percentage = models.FloatField(null=True, blank=True, default=79)  # 0-100%
@@ -189,6 +196,20 @@ class University(models.Model):
         # Dynamically generate the folder name based on the university name
         intermediate= f"university_images/{self.fullname.replace(' ', '_').lower()}"
         return str(Path('media') / intermediate)
+    
+    @property #average rating property
+    def average_rating(self): #method that dynamically calculates average rating from reviews
+        if hasattr(self, '_cached_rating'):
+            return self._cached_rating
+            
+        result = self.review_set.aggregate(average=Avg('stars')) #review_set is the reverse relation to all the reviews corresponding with the University Object
+        self._cached_rating = round(result['average'], 1) if result['average'] else None #stores the current rating
+        return self._cached_rating
+
+    def update_rating(self):
+        if hasattr(self, '_cached_rating'):
+            del self._cached_rating
+        return self.average_rating  # Recalculates and re-caches
 
 def upload_to_university_images(instance, filename):
     # instance: The UniversityImage instance being saved
@@ -241,6 +262,38 @@ class UniversityTestimonial(models.Model):
 
     def __str__(self):
         return f"Testimonial {self.id} for {self.university.fullname}"
+    
 
+User = get_user_model()
+
+
+# review. similar to testimonial, but uploaded by a student with an account.
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) #each review is associated with a user.
+    university = models.ForeignKey(University, on_delete=models.CASCADE)  # each review is associated with a university
+    review_text = models.TextField()
+    stars = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    name_permission=models.BooleanField(default=True)
+    photo_permission=models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    approved=models.BooleanField(default=True) #eventually will only display and account for approved reviews.
+    ROLE_CHOICES = [
+        ('student', 'Current Student'),
+        ('alumni', 'Alumni'),
+        ('faculty', 'Faculty/Staff'),
+        ('other', 'Other'),
+    ]
+    
+    role = models.CharField(
+        max_length=20,
+        choices=ROLE_CHOICES,
+        verbose_name="Your Connection to the University"
+    )
+
+
+    def __str__(self):
+        return f"Review by {self.user.email} for {self.university}"
 
 

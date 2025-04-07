@@ -1,0 +1,100 @@
+{% extends 'master.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}Login Page{% endblock %}
+
+{% block content %}
+<div class=" container rounded box-shadow"style="min-height: 100vh">
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <div class="card justify-content-center my-4 p-3 border-3" style="width: 24rem;">
+  {% if user.is_authenticated %} <!--very important. decides whether the form appears or not-->
+    <div class="card-body">
+      <p>Hi {{ user.first_name }} 🙂</p>
+      <p>Your email: {{ user.email }}</p>
+      {% with user.socialaccount_set.all.0 as social_account %}
+        <img src="{{ social_account.extra_data.picture }}" 
+             alt="Profile" 
+             class="img-fluid rounded-circle my-3"
+             width="100" height="100">
+      {% endwith %}
+      <a href="{% url 'account_logout' %}" class="btn btn-outline-primary">
+        Sign out
+      </a>
+    </div>
+    <!-- under here logic: if they have not already submitted the form, populate the form right here: it includes school choice, name, review, stars, photo permission? name permission? -->
+    {% if already_submitted %} <!--if review has already been submitted-->
+    <div class="alert alert-success">
+      You've already submitted your review. Thank you!
+    </div>
+  {% else %}
+    <h5 class="card-title">Submit Your Review</h5> 
+    <form method="post">
+      {% csrf_token %}
+      
+      {% for field in form %}
+        <div class="mb-3">
+          {% if field.field.widget.input_type != "checkbox" %}
+            <label for="{{ field.id_for_label }}" class="form-label">
+              {{ field.label }}
+            </label>
+          {% endif %}
+          
+          {{ field }}
+          
+          {% if field.field.widget.input_type == "checkbox" %}
+            <label for="{{ field.id_for_label }}" class="form-check-label">
+              {{ field.label }}
+            </label>
+          {% endif %}
+          
+          {% if field.errors %}
+            <div class="invalid-feedback d-block">
+              {{ field.errors|join:", " }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      
+      <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+  {% endif %}
+  {% else %}
+      <div class="card-body">
+      <h2 class="mb-4">Welcome to UPGRADE Dining</h2>
+      <p class="lead mb-4">Please sign in with Google to add your own review of your school's plant-based offerings.</p>
+      <a href="{% provider_login_url 'google' %}" 
+         class="btn btn-google"
+         aria-label="Sign in with Google">
+        <i class="fab fa-google"></i> Continue with Google
+      </a>
+    </div>
+    </div>
+    </div>
+    </div>
+  {% endif %}
+</div>
+
+<!-- specific styling -->
+ <style>
+   /* .container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }  */
+  
+  .btn-google {
+    background: #4285F4;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+  }
+  
+  .btn-google:hover {
+    background: #357ae8;
+    color: white;
+  } 
+</style>
+{% endblock %}

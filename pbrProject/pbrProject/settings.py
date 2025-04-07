@@ -21,7 +21,7 @@ GOOGLE_OAUTH_CLIENT_ID = os.environ.get('GOOGLE_OAUTH_CLIENT_ID')
 if not GOOGLE_OAUTH_CLIENT_ID:
     raise ValueError(
         'GOOGLE_OAUTH_CLIENT_ID is missing.'
-        'Have you put it in a file at core/.env ?'
+        'Have you put it in a file at .env ?'
     )
 
 # We need these lines below to allow the Google sign in popup to work.
@@ -63,23 +63,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',  # Google OAuth
 ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': os.getenv('GOOGLE_OAUTH_CLIENT_ID'),
-            'secret': os.getenv('GOOGLE_OAUTH_SECRET'),
-            'key': ''
-        },
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -101,10 +84,10 @@ AUTHENTICATION_BACKENDS = [
 ACCOUNT_ADAPTER = 'leaderboard.adapters.AccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'leaderboard.adapters.SocialAccountAdapter'
 
-SITE_ID = 1  # Required for allauth
+SITE_ID = 2  # Required for allauth, changed to 2 when i updated the site to be my local site in admin
 
 # Optional: Set login redirect URL
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/login'
 
 ROOT_URLCONF = 'pbrProject.urls'
 

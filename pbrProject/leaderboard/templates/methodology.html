@@ -1,0 +1,237 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block style %}
+<style>
+.section-title {
+    font-size: 2.5rem;
+    margin-top: 2rem;
+    font-weight: bold;
+    color: #198754; /* Success color */
+}
+.content-section {
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    line-height: 1.75;
+}
+.table {
+    margin-top: 2rem;
+}
+.table th, .table td {
+    vertical-align: middle;
+}
+body {
+    font-family: 'Libre Franklin', sans-serif;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 py-5">
+    <div class="narrow-container">
+        <h1 class="section-title text-center">Methodology</h1>
+
+        <div class="content-section">
+            <h2 class="h4 fw-bold text-success">High-Impact Questions (100 points each)</h2>
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-success">
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Percentage of animal-based food purchases (2023-2024)</td>
+                        <td>
+                            0-20% animal-based: 100 points <br>
+                            21-40% animal-based: 75 points <br>
+                            41-60% animal-based: 50 points <br>
+                            61-80% animal-based: 25 points <br>
+                            81-100% animal-based (or unreported): 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Formal & Informal commitments (e.g., HSUS Pledge, Cool Food Pledge)</td>
+                        <td>
+                            Signed multiple commitments: 100 points <br>
+                            Signed one individual school commitment: 75 points <br>
+                            Working with a plant-based transition provider (e.g., Sodexo, Aramark): 50 points <br>
+                            Has at least one informal commitment: 25 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Vegan main meals offered per average dinner day</td>
+                        <td>
+                            3+ Vegan Main Meal Options: 100 points <br>
+                            2-3 Vegan Main Meal Options: 75 points <br>
+                            1-2 Vegan Main Meal Options: 50 points <br>
+                            0.5-1 Vegan Main Meal Options: 25 points <br>
+                            0-0.5 Vegan Main Meal Options: 0 points
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-section">
+            <h2 class="h4 fw-bold text-success">Medium-Impact Questions (50 points each)</h2>
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-success">
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Plant-based options at breakfast</td>
+                        <td>
+                            >4 options: 50 points <br>
+                            3-4 options: 40 points <br>
+                            2-3 options: 20 points <br>
+                            1-2 options: 10 points <br>
+                            0-1 options: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Default Veg program or pilot</td>
+                        <td>
+                            Currently implemented: 50 points <br>
+                            Piloted in the past: 25 points <br>
+                            Never implemented: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Plant-based culinary training</td>
+                        <td>
+                            Recent training (last 5 years): 50 points <br>
+                            Past training (more than 5 years ago): 25 points <br>
+                            No training: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Dedicated sustainable eating page/program</td>
+                        <td>
+                            Yes: 50 points <br>
+                            No: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Recent Changes to Food Offerings signaling a shift towards more plant-based menu</td>
+                        <td>
+                            Yes, major change: 50 points <br>
+                            Yes, minor change: 25 points <br>
+                            No/unreported: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Student satisfaction with plant-based options</td>
+                        <td>
+                            Positive survey data: 50 points <br>
+                            Mixed/negative survey data: 20 points <br>
+                            No data: 0 points
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="content-section">
+            <h2 class="h4 fw-bold text-success">Low-Impact Questions (20 points each)</h2>
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-success">
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Plant-based dessert options</td>
+                        <td>
+                            Regularly provided: 20 points <br>
+                            Occasionally provided: 10 points <br>
+                            Never provided: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Plant-based protein sources at salad bar</td>
+                        <td>
+                            4+ options: 20 points <br>
+                            2-3 options: 15 points <br>
+                            1 option: 10 points <br>
+                            0 options: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Meatless Monday or similar program</td>
+                        <td>
+                            Institutional-level implementation: 50 points <br>
+                            Specific school/dining hall implementation: 25 points <br>
+                            No program: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Advertising/promotional materials for plant-based foods</td>
+                        <td>
+                            Yes: 20 points <br>
+                            No: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sustainability Guidebook for Dining Services</td>
+                        <td>
+                            Yes: 20 points <br>
+                            No: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Labeling of plant-based foods</td>
+                        <td>
+                            Clear and consistent labeling without "vegan": 20 points <br>
+                            Inconsistent or unclear labeling, or with "vegan": 10 points <br>
+                            No labeling: 0 points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Naming of plant-based foods</td>
+                        <td>
+                            Creative/descriptive names: 20 points <br>
+                            Generic names (e.g., "vegan stew"): 10 points <br>
+                            No specific naming: 0 points
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="content-section border p-4 mt-4">
+            <h2 class="h4 fw-bold text-success">Calculate Total Scores</h2>
+            <p>
+                For each university, calculate the total score by summing the points from all categories.
+                Example:
+            </p>
+        
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <p><strong>University A:</strong></p>
+                    <p>High-Impact: 300 points</p>
+                    <p>Medium-Impact: 200 points</p>
+                    <p>Low-Impact: 80 points</p>
+                    <p><strong>Total: 580 points</strong></p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p><strong>University B:</strong></p>
+                    <p>High-Impact: 200 points</p>
+                    <p>Medium-Impact: 150 points</p>
+                    <p>Low-Impact: 60 points</p>
+                    <p><strong>Total: 410 points</strong></p>
+                </div>
+            </div>
+        
+            <p><strong>Maximum Points: 740</strong></p>
+        </div>
+       
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'master.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <!-- User Profile Header -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body text-center">
+          {% if user.socialaccount_set.all.0 %}
+            <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" 
+                 class="rounded-circle mb-3" width="120" height="120" alt="Profile">
+          {% endif %}
+          <h2>{{ user.get_full_name|default:user.username }}</h2>
+          <p class="text-muted">{{ user.email }}</p>
+        </div>
+      </div>
+
+      <!-- Review Submission Section -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title">Submit a Review</h3>
+          
+          {% if already_submitted %}
+            <div class="alert alert-success">
+              You've already submitted your review. Thank you!
+            </div>
+          {% else %}
+            <form method="POST">
+              {% csrf_token %}
+              
+              <div class="mb-3">
+                <label for="{{ form.university.id_for_label }}" class="form-label">University</label>
+                {{ form.university }}
+              </div>
+              
+              <div class="mb-3">
+                <label for="{{ form.role.id_for_label }}" class="form-label">Your Role</label>
+                {{ form.role }}
+              </div>
+              
+              <div class="mb-3">
+                <label for="{{ form.review_text.id_for_label }}" class="form-label">Review</label>
+                {{ form.review_text }}
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Rating</label>
+                <div class="star-rating">
+                  {% for i in "54321" %}
+                    <input type="radio" id="star{{ i }}" name="stars" value="{{ i }}" 
+                           {% if form.stars.value == i %}checked{% endif %}>
+                    <label for="star{{ i }}">★</label>
+                  {% endfor %}
+                </div>
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Existing Reviews Section -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title">Your Reviews</h3>
+          
+          {% if user_reviews %}
+            <div class="list-group">
+              {% for review in user_reviews %}
+              <div class="list-group-item mb-3">
+                <div class="d-flex justify-content-between">
+                  <h5>{{ review.university.fullname }}</h5>
+                  <div class="text-warning">
+                    {% for i in "12345" %}
+                      {% if forloop.counter <= review.stars %}
+                        <i class="fas fa-star"></i>
+                      {% else %}
+                        <i class="far fa-star"></i>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+                <p class="mb-1">{{ review.review_text }}</p>
+                <small class="text-muted">
+                  Submitted on {{ review.created_at|date:"F j, Y" }} • 
+                  {{ review.get_role_display }}
+                  {% if review.role_other %}({{ review.role_other }}){% endif %}
+                </small>
+              </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="text-muted">You haven't submitted any reviews yet.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Star rating styling */
+  .star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  .star-rating input { display: none; }
+  .star-rating label { 
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
+    padding: 0 3px;
+  }
+  .star-rating input:checked ~ label { color: #ffc107; }
+  .star-rating label:hover,
+  .star-rating label:hover ~ label { color: #ffc107; }
+</style>
+{% endblock %}

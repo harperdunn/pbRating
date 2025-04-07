@@ -37,8 +37,14 @@
               <div class="card-body">
                 <!-- money icon -->
                 <i class="bi bi-cash-coin h1"></i>
+                {%if university.animal_based_percentage > 99 %}
+                <p class="display-2 my-4 text-danger fw-bold">UNREPORTED</p> 
+                <h5 class="card-title">% of yearly food purchases that are on animal-based products.</h5>
+
+                {% else %}
                 <p class="display-5 my-4 text-danger fw-bold">{{university.animal_based_percentage}}%</p>  
                 <h5 class="card-title">of yearly food purchases are on animal-based products.</h5>
+                {% endif %}
               </div>
             </div>
           </div>
@@ -142,74 +148,102 @@
 
 </div>    
 <section class="rounded" id="testimonials" style="color: #000; background-color: #f3f2f2;">
-  <div class="container py-5">  <!-- Removed m-5 and d-flex from container -->
+  <div class="container py-5">
+
     <!-- Header -->
     <div class="row justify-content-center">
       <div class="col-md-10 col-xl-8 text-center">
-        <h3 class="fw-bold mb-4">Testimonials</h3>
+        <h3 class="fw-bold mb-4">Testimonials and Reviews</h3>
         <p class="mb-4 pb-2 mb-md-5 pb-md-0">
-          Here are some quotes from current students about {{ university.fullname }}'s plant-based options and progress.
+          Find out what people have to say about {{ university.fullname }}'s plant-based progress.
         </p>
+        {% if university.average_rating %}
+        <h4 class="fw-semibold text-muted">Average Rating: {{ university.average_rating }}/5</h4>
+        {% endif %}
       </div>
     </div>
 
     <!-- Cards Grid -->
-    <div class="row justify-content-center g-3">  <!-- Simplified grid -->
-      {% for testimonial in testimonials %}
-      <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">  <!-- Responsive columns -->
-        <div class="card-body p-4 shadow bg-success-subtle rounded" style="width: 100%; max-width: 300px;">  <!-- Centered card -->
-          <h5 class="font-weight-bold text-center">{{ testimonial.name }}</h5>
-          <h6 class="font-weight-bold my-3 text-center">{{ testimonial.role }}</h6>
-          <ul class="list-unstyled d-flex justify-content-center">
-            {% if testimonial.stars > 0 %}
-              {% for i in "12345" %}
-                <li>
-                  {% if forloop.counter <= testimonial.stars %}
-                    <i class="fas fa-star fa-sm text-info"></i>
-                  {% else %}
-                    <i class="far fa-star fa-sm text-info"></i>
-                  {% endif %}
-                </li>
-              {% endfor %}
-            {% else %}
-              <li class="invisible"><i class="fas fa-star fa-sm"></i></li>  <!-- Better invisible placeholder -->
+    <div class="row justify-content-center g-4">
+
+      <!-- Reviews -->
+      {% for review in reviews %}
+      <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
+        <div class="card p-4 shadow bg-success-subtle rounded" style="width: 100%; max-width: 300px;">
+          <div class="d-flex align-items-center mb-3">
+            {% if review.photo_permission and review.user.socialaccount_set.all.0 %}
+            <img src="{{ review.user.socialaccount_set.all.0.get_avatar_url }}"
+                 class="rounded-circle me-2" width="40" height="40" alt="Profile">
             {% endif %}
+            <div>
+              <h5 class="fw-bold mb-0">
+                {% if review.name_permission %}
+                  {% if review.user.get_full_name %}
+                    {{ review.user.get_full_name }}
+                  {% else %}
+                    {{ review.user.username|truncatechars:12 }}
+                  {% endif %}
+                {% endif %}
+              </h5>
+              <small class="text-muted">{{ review.created_at|date:"M d, Y" }}</small>
+            </div>
+          </div>
+
+          <h6 class="fw-bold my-3 text-center">{{ review.get_role_display }}</h6>
+
+          <ul class="list-unstyled d-flex justify-content-center mb-3">
+            {% for i in "12345" %}
+            <li>
+              {% if forloop.counter <= review.stars %}
+                <i class="fas fa-star fa-sm text-warning"></i>
+              {% else %}
+                <i class="far fa-star fa-sm text-warning"></i>
+              {% endif %}
+            </li>
+            {% endfor %}
           </ul>
+
           <p class="mb-2 text-center">
-            <i class="fas fa-quote-left pe-2"></i>{{ testimonial.quote }}<i class="fas fa-quote-right pe-2"></i>
+            <i class="fas fa-quote-left pe-2"></i>{{ review.review_text }}<i class="fas fa-quote-right ps-2"></i>
           </p>
         </div>
       </div>
       {% endfor %}
-    </div>
 
-    <!-- Form -->
-    <div class="row justify-content-center mt-5">
-      <div class="col-md-8">
-        <div class="testimonial-form text-center p-4 shadow-sm bg-white rounded">
-          <h4 class="mb-4">Share Your Experience</h4>
-          <form method="post" action="{% url 'university_detail' university.id %}">
-            {% csrf_token %}
-            <input type="hidden" name="submit_testimonial" value="1">
-            <div class="form-group mb-3">
-              <label for="id_name">Your Name</label>
-              {{ testimonial_form.name }}
-            </div>
-            <div class="form-group mb-3">
-              <label for="id_role">Your Role</label>
-              {{ testimonial_form.role }}
-            </div>
-            <div class="form-group mb-4">
-              <label for="id_review">Your Review</label>
-              {{ testimonial_form.quote }}
-            </div>
-            <button type="submit" class="btn btn-primary px-4">Submit Review</button>
-          </form>
+      <!-- Testimonials -->
+      {% for testimonial in testimonials %}
+      <div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
+        <div class="card p-4 shadow bg-success-subtle rounded" style="width: 100%; max-width: 300px;">
+          <h5 class="fw-bold text-center">{{ testimonial.name }}</h5>
+          <h6 class="fw-bold my-3 text-center">{{ testimonial.role }}</h6>
+
+          <ul class="list-unstyled d-flex justify-content-center mb-3">
+            {% if testimonial.stars > 0 %}
+              {% for i in "12345" %}
+              <li>
+                {% if forloop.counter <= testimonial.stars %}
+                  <i class="fas fa-star fa-sm text-info"></i>
+                {% else %}
+                  <i class="far fa-star fa-sm text-info"></i>
+                {% endif %}
+              </li>
+              {% endfor %}
+            {% else %}
+              <li class="invisible"><i class="fas fa-star fa-sm"></i></li>
+            {% endif %}
+          </ul>
+
+          <p class="mb-2 text-center">
+            <i class="fas fa-quote-left pe-2"></i>{{ testimonial.quote }}<i class="fas fa-quote-right ps-2"></i>
+          </p>
         </div>
       </div>
+      {% endfor %}
+
     </div>
   </div>
 </section>
+
       
   </div>
 {% endblock %}

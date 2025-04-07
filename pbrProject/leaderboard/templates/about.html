@@ -1,28 +1,158 @@
-{%extends "master.html"%}
-{%load static%}
-        <section class="page-section about-heading">
-            <div class="container">
-                <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="assets/img/about.jpg" alt="..." />
-                <div class="about-heading-content">
-                    <div class="row">
-                        <div class="col-xl-9 col-lg-10 mx-auto">
-                            <div class="bg-faded rounded p-5">
-                                <h2 class="section-heading mb-4">
-                                    <span class="section-heading-upper">Strong Coffee, Strong Roots</span>
-                                    <span class="section-heading-lower">About Our Cafe</span>
-                                </h2>
-                                <p>Founded in 1987 by the Hernandez brothers, our establishment has been serving up rich coffee sourced from artisan farmers in various regions of South and Central America. We are dedicated to travelling the world, finding the best coffee, and bringing back to you here in our cafe.</p>
-                                <p class="mb-0">
-                                    We guarantee that you will fall in
-                                    <em>lust</em>
-                                    with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{% extends "master.html" %}
+{% load static %}
+{% block style %}
+<style>
+.section-title {
+    font-size: 2rem;
+    margin-top: 2rem;
+    font-weight: bold;
+    color: #28a745; /* Success color */
+}
+
+.content-section {
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    line-height: 1.75;
+    color: #6c757d; /* Subtle text color */
+}
+
+.narrow-container {
+    max-width: 800px;  /* Limits width */
+    margin: 0 auto;    /* Centers the content */
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    color: #495057; /* Subtle list color */
+}
+
+ul li::before {
+    content: "• ";
+    color: #28a745; /* Success color for bullet points */
+    font-size: 1.25rem; /* Adjust bullet size */
+}
+body {
+    font-family: 'Libre Franklin', sans-serif;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<header class="text-center bg-success-subtle mb-4">
+    <img src="{% static 'images/upgrade-hero.png' %}" alt="UPGRADE Dining Banner" class="p-3">
+</header>
+
+<!-- Main Content -->
+<div class="container-fluid px-3 py-5">
+    <div class="narrow-container">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-success">About UPGRADE Dining</h1>
+        <p class="lead">
+            UPGRADE Dining is a nationwide grassroots campaign, spearheaded by Food 4 Thought Innovations, 
+            to encourage universities to shift towards more plant-based food options.
+        </p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">Mission</h2>
+        <p>
+            Our mission is simple. Get universities to replace 50 percent of their animal-based options with 
+            plant-based options by 2030. Our approach is customized to each university. We recognize that 
+            each university operates with its own interests and constraints. By aligning with the priorities 
+            of the university, we make a compelling case for why shifting to plant-based options is in their 
+            best interests, including saving on costs, increasing student satisfaction, reducing social and 
+            environmental harm, and expanding culinary innovation.
+        </p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">Theory of Change</h2>
+        <p>
+            As students and paying customers at these universities, we are uniquely positioned to provide the 
+            demand-side push that is needed to bring more plant-based options to universities. By launching a 
+            strategically-coordinated public pressure campaign, we can kickstart a conversation at US 
+            universities that hasn’t been had before (at scale).  With the backing of large coalitions of 
+            students and organizations, we aim to set customized implementation plans that involve working 
+            with our partners to add alt proteins into daily menus, create cost-effective default 
+            interventions, and undergo necessary training to facilitate a plant-based transition.
+        </p>
+        <p>
+            We’ve partnered with nearly 30 plant-based and alternative protein companies to organize tasting 
+            events at universities and offer discounted packages for adding products. The data we gather will 
+            be useful for our implementation partners when engaging in conversations with food service 
+            providers, since it will likely show that there is widespread favorability towards these products 
+            among a diverse array of students.
+        </p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">Impact</h2>
+        <p>
+            Our campaign is targeted at ten campuses that we have assessed as ideal fits based on a number of 
+            factors:
+        </p>
+        <ul>
+            <li>High potential for impact</li>
+            <li>Dining team receptiveness to plant-based foods</li>
+            <li>Student favorability of plant-based foods</li>
+            <li>Schools which are independent food service operators</li>
+        </ul>
+        <p>
+            These schools include Harvard University, Stanford University, California Institute of Technology, 
+            Cornell University, UCLA, Rice University, Tufts University, UC Berkeley, Princeton University, 
+            and the University of Michigan. By the end of 2025, we hope to accomplish the following goals:
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="p-4 bg-success-subtle rounded shadow-sm h-100">
+                <h4 class="fw-bold">Data Collection</h4>
+                <ul>
+                    <li>Survey 10,000+ students on plant-based dining insights</li>
+                    <li>Release university-specific reports with key recommendations</li>
+                    <li>Gain support from student groups, faculty, and sustainability teams</li>
+                </ul>
             </div>
-        </section>
-        <footer class="footer text-faded text-center py-5">
-            <div class="container"><p class="m-0 small">Copyright &copy; Your Website 2023</p></div>
-        </footer>
+        </div>
+
+        <div class="col-md-6">
+            <div class="p-4 bg-success-subtle rounded shadow-sm h-100">
+                <h4 class="fw-bold">Plant-Based Menus</h4>
+                <ul>
+                    <li>Host taste tests with 10 dining teams and 20+ brands</li>
+                    <li>Conduct menu trials to gather student feedback</li>
+                    <li>Help add 2–5 products per school to 2025–2026 menus</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="p-4 bg-success-subtle rounded shadow-sm h-100">
+                <h4 class="fw-bold">Public Pressure</h4>
+                <ul>
+                    <li>Launch petition at 50+ schools</li>
+                    <li>Get 1,000+ academics and 10,000+ students to sign</li>
+                    <li>Appear on 3+ national news channels</li>
+                    <li>Reach 1M+ impressions on social media</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="p-4 bg-success-subtle rounded shadow-sm h-100">
+                <h4 class="fw-bold">Commitment</h4>
+                <ul>
+                    <li>Secure UPGRADE plans at all 10 campuses</li>
+                    <li>Get formal 50/50 commitments by 2030 from some schools</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
