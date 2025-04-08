@@ -109,6 +109,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pbrProject.wsgi.application'
 
+# Google OAuth
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+    }
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
