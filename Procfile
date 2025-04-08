@@ -1,0 +1,1 @@
+web: gunicorn pbrProject.wsgi -log-file -
