@@ -2,3 +2,6 @@ ratingEnv/
 /node_modules
 /pbrProject/pbrProject/.env 
 datadump.json
+db_backup.json
+/pbrProject_clean/datadump.json
+/pbrProject_clean/db_backup.json
