@@ -28,3 +28,5 @@ db.sqlite3
 *.swo
 *~
 .DS_Store
+
+datadump.json
