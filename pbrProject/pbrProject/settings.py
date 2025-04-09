@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'leaderboard',
+    'pbrProject.leaderboard',
     'bootstrap5',
     'django.contrib.sites',  # Required for allauth
     'allauth',
@@ -89,7 +89,7 @@ SITE_ID = 2  # Required for allauth, changed to 2 when i updated the site to be 
 # Optional: Set login redirect URL
 LOGIN_REDIRECT_URL = '/login'
 
-ROOT_URLCONF = 'pbrProject.urls'
+ROOT_URLCONF = 'pbrProject.pbrProject.urls'
 
 TEMPLATES = [
     {
@@ -107,7 +107,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pbrProject.wsgi.application'
+WSGI_APPLICATION = 'pbrProject.pbrProject.wsgi.application'
 
 # Google OAuth
 SOCIALACCOUNT_PROVIDERS = {
