@@ -5,3 +5,26 @@ datadump.json
 db_backup.json
 /pbrProject_clean/datadump.json
 /pbrProject_clean/db_backup.json
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+.env
+db.sqlite3
+
+*.db
+*.sql
+/db/
+/media/
+/staticfiles/
+/static/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
