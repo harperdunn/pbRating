@@ -40,9 +40,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["upgrade.herokuapp.com", "127.0.0.1"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -50,11 +50,11 @@ ALLOWED_HOSTS = ["upgrade.herokuapp.com", "127.0.0.1"]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'leaderboard',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pbrProject.leaderboard',
     'bootstrap5',
     'django.contrib.sites',  # Required for allauth
     'allauth',
@@ -89,7 +89,7 @@ SITE_ID = 2  # Required for allauth, changed to 2 when i updated the site to be 
 # Optional: Set login redirect URL
 LOGIN_REDIRECT_URL = '/login'
 
-ROOT_URLCONF = 'pbrProject.pbrProject.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
@@ -107,7 +107,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pbrProject.pbrProject.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 # Google OAuth
 SOCIALACCOUNT_PROVIDERS = {
@@ -122,12 +122,27 @@ SOCIALACCOUNT_PROVIDERS = {
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 #uses heroku postgre when needed, and local sqlite when local
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL', default='sqlite:///db.sqlite3')
-    )
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': config('PGPASSWORD'),
+#         'HOST': 'postgres.railway.internal',
+#         'PORT': '5432',
+#     }
+# }
 
+# DATABASES= {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+DATABASES = {
+    'default': dj_database_url.parse("postgresql://upgrade_dining_user:sTB3Myc2sWjXjNsglKu3ZVBpcEcIHvEW@dpg-cvrecbre5dus73872m90-a.oregon-postgres.render.com/upgrade_dining")
+}
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
