@@ -16,13 +16,21 @@ from dotenv import load_dotenv
 from pathlib import Path
 import dj_database_url
 from decouple import config
+from decouple import Config
 
+print(os.getenv('DATABASE_URL'))
 
 
 load_dotenv()
 
-GOOGLE_OAUTH_CLIENT_ID = config('GOOGLE_OAUTH_CLIENT_ID')  # Raises error if missing
+config = Config('../.env')
 
+print(config('DATABASE_URL'))
+
+
+
+GOOGLE_OAUTH_CLIENT_ID = config('GOOGLE_OAUTH_CLIENT_ID')  # Raises error if missing
+DATABASE_URL = config('DATABASE_URL') #environment variable
 
 # We need these lines below to allow the Google sign in popup to work.
 SECURE_REFERRER_POLICY = 'no-referrer-when-downgrade'
@@ -121,17 +129,6 @@ SOCIALACCOUNT_PROVIDERS = {
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-#uses heroku postgre when needed, and local sqlite when local
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',
-#         'USER': 'postgres',
-#         'PASSWORD': config('PGPASSWORD'),
-#         'HOST': 'postgres.railway.internal',
-#         'PORT': '5432',
-#     }
-# }
 
 # DATABASES= {
 #     'default': {
@@ -141,7 +138,7 @@ SOCIALACCOUNT_PROVIDERS = {
 # }
 
 DATABASES = {
-    'default': dj_database_url.parse("postgresql://upgrade_dining_user:sTB3Myc2sWjXjNsglKu3ZVBpcEcIHvEW@dpg-cvrecbre5dus73872m90-a.oregon-postgres.render.com/upgrade_dining")
+    'default': dj_database_url.parse(DATABASE_URL)
 }
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
