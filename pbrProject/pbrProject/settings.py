@@ -132,6 +132,7 @@ CSRF_TRUSTED_ORIGINS=['https://pbrating.onrender.com']
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
+#for local testing
 # DATABASES= {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -178,7 +179,7 @@ USE_TZ = True
 
 # Static files (CSS, JS, images used in templates)
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'  # Use the / operator
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Use the / operator
 
 # Media files (user-uploaded files)
 MEDIA_URL = '/media/'
