@@ -51,7 +51,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'www.pbrating.onrender.com', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'www.pbrating.onrender.com', 'localhost', 'pbrating.onrender.com']
 
 
 # Application definition
@@ -133,12 +133,12 @@ CSRF_TRUSTED_ORIGINS=['https://pbrating.onrender.com']
 
 
 #for local testing
-# DATABASES= {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES= {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 DATABASES = {
     'default': dj_database_url.parse(DATABASE_URL)
