@@ -35,7 +35,7 @@ def university_detail(request, university_id):
 
     approved_testimonials=university.testimonials.filter(approved=True)
 
-   
+
 
 
     

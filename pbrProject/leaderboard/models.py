@@ -4,6 +4,7 @@ from pathlib import Path
 import os
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.files.storage import default_storage
 
 
 
@@ -231,15 +232,18 @@ class UniversityImage(models.Model):
     def save(self, *args, **kwargs):
         # Check if the instance already exists in the database
         if self.pk:
-            # Get the old image file path
-            old_instance = UniversityImage.objects.get(pk=self.pk) #pk means primary key
-            if old_instance.image and old_instance.image != self.image:
-                # Delete the old file if it exists
-                if os.path.isfile(old_instance.image.path):
-                    os.remove(old_instance.image.path)
+            try:
+                old_instance = UniversityImage.objects.get(pk=self.pk)
+                if old_instance.image and old_instance.image != self.image:
+                 # Use Django's storage system to delete the old image
+                    if default_storage.exists(old_instance.image.name):
+                        old_instance.image.delete(save=False)
+            except UniversityImage.DoesNotExist:
+                pass  # In case the instance somehow doesn't exist yet
 
-        # Call the parent save method
+        # Save the new instance
         super().save(*args, **kwargs)
+
 
     #overriding the delete method so files are cleaned up when a University model with images is deleted on the admin side.
     def delete(self, *args, **kwargs):

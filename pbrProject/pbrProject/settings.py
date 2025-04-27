@@ -25,8 +25,6 @@ load_dotenv()
 
 config = Config('../.env')
 
-print(config('DATABASE_URL'))
-
 
 
 GOOGLE_OAUTH_CLIENT_ID = config('GOOGLE_OAUTH_CLIENT_ID')  # Raises error if missing
@@ -49,7 +47,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False 
+DEBUG = True 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'www.pbrating.onrender.com', 'localhost', 'pbrating.onrender.com']
 
@@ -60,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'leaderboard',
+    'storages',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -133,12 +132,12 @@ CSRF_TRUSTED_ORIGINS=['https://pbrating.onrender.com']
 
 
 #for local testing
-DATABASES= {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES= {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASES = {
     'default': dj_database_url.parse(DATABASE_URL)
@@ -179,17 +178,41 @@ USE_TZ = True
 
 STORAGES = {
     # ...
+     "default": {  # For media files (uploads)
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
+#AWS for media upload file storage
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+AWS_S3_CUSTOM_DOMAIN=config('AWS_S3_CUSTOM_DOMAIN')
+AWS_DEFAULT_ACL = None #must disallow acls per s3 bucket configuration
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_LOCATION='media'
+AWS_CLOUDFRONT_URL = 'https://d1we776edtqes8.cloudfront.net'  # Use your CloudFront URL
+
+
+
+# Optional settings
+AWS_S3_FILE_OVERWRITE = False  # Prevent overwriting files with same names
+AWS_QUERYSTRING_AUTH = False  # Remove query parameter authentication from URLs
+
+
 # Static files (CSS, JS, images used in templates)
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Use the / operator
 
+
+
 # Media files (user-uploaded files)
-MEDIA_URL = '/media/'
+# For S3-backed media files
+MEDIA_URL = AWS_CLOUDFRONT_URL + '/'
 MEDIA_ROOT = BASE_DIR / 'media'  # Use the / operator
 
 #global static
@@ -202,6 +225,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 
 
