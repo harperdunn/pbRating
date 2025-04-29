@@ -196,7 +196,7 @@ class University(models.Model):
     def image_folder(self):
         # Dynamically generate the folder name based on the university name
         intermediate= f"university_images/{self.fullname.replace(' ', '_').lower()}"
-        return str(Path('media') / intermediate)
+        return str(Path(intermediate))
     
     @property #average rating property
     def average_rating(self): #method that dynamically calculates average rating from reviews

@@ -191,13 +191,10 @@ AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
-AWS_S3_CUSTOM_DOMAIN=config('AWS_S3_CUSTOM_DOMAIN')
 AWS_DEFAULT_ACL = None #must disallow acls per s3 bucket configuration
 AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_LOCATION='media'
-AWS_CLOUDFRONT_URL = 'https://d1we776edtqes8.cloudfront.net'  # Use your CloudFront URL
-
-
+AWS_CLOUDFRONT_URL = 'd1we776edtqes8.cloudfront.net'  # Use your CloudFront URL
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'  # Uploads talk to this
 
 # Optional settings
 AWS_S3_FILE_OVERWRITE = False  # Prevent overwriting files with same names
@@ -212,8 +209,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  # Use the / operator
 
 # Media files (user-uploaded files)
 # For S3-backed media files
-MEDIA_URL = AWS_CLOUDFRONT_URL + '/'
+MEDIA_URL = f'https://{AWS_CLOUDFRONT_URL}/'
 MEDIA_ROOT = BASE_DIR / 'media'  # Use the / operator
+print(MEDIA_URL)
 
 #global static
 STATICFILES_DIRS = [
