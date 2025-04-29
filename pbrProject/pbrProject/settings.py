@@ -47,7 +47,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = False 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'www.pbrating.onrender.com', 'localhost', 'pbrating.onrender.com']
 
@@ -182,7 +182,7 @@ STORAGES = {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
     },
 }
 
@@ -200,9 +200,8 @@ AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'  # Uploads 
 AWS_S3_FILE_OVERWRITE = False  # Prevent overwriting files with same names
 AWS_QUERYSTRING_AUTH = False  # Remove query parameter authentication from URLs
 
-
 # Static files (CSS, JS, images used in templates)
-STATIC_URL = '/static/'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Use the / operator
 
 
