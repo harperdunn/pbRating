@@ -94,6 +94,9 @@
                   {{ review.get_role_display }}
                   {% if review.role_other %}({{ review.role_other }}){% endif %}
                 </small>
+                <form action="{% url 'delete_review' %}" method="get" class="mt-2">
+                  <button type="submit" class="btn btn-danger btn-sm">Delete Review</button>
+                </form>
               </div>
               {% endfor %}
             </div>

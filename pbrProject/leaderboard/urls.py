@@ -12,6 +12,7 @@ urlpatterns = [
     path("logout/",views.logout_view, name="logout" ),
     path('profile/', views.profile_view, name='profile'),
     path('methodology/', views.methodology_view, name='methodology'),
+    path('delete-review/', views.delete_review, name='delete_review'),
     path('accounts/', include('allauth.urls')),  # Handles ALL Google auth (login/signup), jumps to the allauths accounts folder of templates etc
     # path('accounts/', include('allauth.socialaccount.urls')),
 

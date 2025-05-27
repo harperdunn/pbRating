@@ -95,3 +95,16 @@ def profile_view(request):
         'already_submitted': already_submitted,
         'user_reviews': user_reviews
     })
+
+def delete_review(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    review = get_object_or_404(Review, user=request.user)
+    
+    if request.method == 'POST': #this means that if the user has already pressed confirm delete (it would be a post not a get), then they can go ahead and delete the review, otherwise the confirmdelete page renders.
+        review.delete()
+        messages.success(request, 'Your review has been deleted successfully.')
+        return redirect('profile')
+    
+    return render(request, 'confirmdeletereview.html', {'review': review})
