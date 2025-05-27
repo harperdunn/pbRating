@@ -1,19 +1,39 @@
-ratingEnv/
-/node_modules
-/pbrProject/pbrProject/.env 
-datadump.json
-db_backup.json
-/pbrProject_clean/datadump.json
-/pbrProject_clean/db_backup.json
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
 *.log
 *.pot
 *.pyc
-__pycache__/
+db.sqlite3
+media/
+university_images/
+
+# Environment
+.env
+**/.env
+.env.*
+**/.env.*
+venv/
+env/
+ratingenv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
 local_settings.py
 
-.env
-db.sqlite3
-
+# Python
 *.db
 *.sql
 /db/
@@ -21,14 +41,7 @@ db.sqlite3
 /staticfiles/
 /static/
 
-# IDE and editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
+# Python
 data.json
 data2.json
 pbrProject/staticfiles
