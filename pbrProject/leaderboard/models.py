@@ -15,6 +15,12 @@ class University(models.Model):
     overallGrade=models.CharField(max_length=255, default='B')
     detailsOverview=models.TextField(default='Details Overview Goes Here')
 
+    @property
+    def details_overview_display(self):
+        if self.detailsOverview in [None, "None", "none", ""]:
+            return f"{self.fullname}'s Report"
+        return self.detailsOverview
+
     def __str__(self):
         return self.fullname
 
