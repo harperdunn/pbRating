@@ -18,9 +18,6 @@ import dj_database_url
 from decouple import config
 from decouple import Config
 
-print(os.getenv('DATABASE_URL'))
-
-
 load_dotenv()
 
 config = Config('../.env')
@@ -210,8 +207,6 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  # Use the / operator
 # For S3-backed media files
 MEDIA_URL = f'https://{AWS_CLOUDFRONT_URL}/'
 MEDIA_ROOT = BASE_DIR / 'media'  # Use the / operator
-print(MEDIA_URL)
-
 #global static
 STATICFILES_DIRS = [
     BASE_DIR / 'mystaticfiles'

@@ -30,6 +30,7 @@ class University(models.Model):
     formal_commitments = models.FloatField(null=True, blank=True, default=0)  # 0, 1, 2, 3
     transition_provider = models.BooleanField(default=False) 
     vegan_meals = models.FloatField(null=True, blank=True, default=0)  # vegan meals per average dinner day, 0-3+
+    #could make student 
     
     # Medium-Impact Questions (50 points each)
     sustainable_page = models.BooleanField(default=False)

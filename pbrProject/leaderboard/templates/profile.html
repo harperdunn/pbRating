@@ -29,7 +29,7 @@
           
           {% if already_submitted %}
             <div class="alert alert-success">
-              You've already submitted your review. Thank you!
+              You have submitted your review. Thank you!
             </div>
           {% else %}
             <form method="POST">
@@ -58,6 +58,24 @@
                            {% if form.stars.value == i %}checked{% endif %}>
                     <label for="star{{ i }}">★</label>
                   {% endfor %}
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <div class="form-check">
+                  {{ form.name_permission }}
+                  <label class="form-check-label" for="{{ form.name_permission.id_for_label }}">
+                  Show my name with this review
+                  </label>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <div class="form-check">
+                  {{ form.photo_permission }}
+                  <label class="form-check-label" for="{{ form.photo_permission.id_for_label }}">
+                    Show my profile photo with this review
+                  </label>
                 </div>
               </div>
               
