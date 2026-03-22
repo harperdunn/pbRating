@@ -31,6 +31,13 @@ ratingenv/
 .DS_Store
 Thumbs.db
 
+# Node / Sass
+node_modules/
+package.json
+package-lock.json
+css/
+sass/
+
 # Python
 local_settings.py
 
